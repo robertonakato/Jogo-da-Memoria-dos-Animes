@@ -40,10 +40,17 @@ let tempos = true;
 let sortearCards = imagens.sort(()=>(Math.random() > 0.5 ? 2: -1 ));
 
 
-function proximo(){
-    let explicar = document.querySelector(".imghardskill")
-    explicar1 = (explicar1 + 1) % seguinte.length;
-    explicar.innerHTML =seguinte[explicar1]   }
+function proximo() {
+    let explicar = document.querySelector(".rayexplica"); // Seleciona o elemento correto
+
+    if (explicar) {  // Verifica se o elemento existe
+        explicar1 = (explicar1 + 1) % seguinte.length;  // Calcula o próximo índice
+        explicar.innerHTML = seguinte[explicar1];  // Atualiza o conteúdo
+    } else {
+        console.error("Elemento '.rayexplica' não encontrado no DOM.");  // Mensagem de erro se o elemento não for encontrado
+    }
+}
+
    
 function mostrarregras(){
     if ( !regrasvisiveis){
@@ -98,37 +105,44 @@ function check() {
             openCards[0].classList.add("boxMacth");
             openCards[1].classList.add("boxMacth");
             state.values.suapontuacao++;
-            state.values.acertos++
-            state.values.erros = 0
-           
-            acertou()
+            state.values.acertos++;
+            state.values.erros = 0;
+
+            acertou();
         } else {
             openCards[0].classList.remove("boxOpen");
             openCards[1].classList.remove("boxOpen");
-            state.values.erros++
-            state.values.acertos = 0
-            errou()
+            state.values.erros++;
+            state.values.acertos = 0;
+            errou();
         }
         openCards = [];
         if (document.querySelectorAll(".boxMacth").length === imagens.length) {
-            fase++
-            informacoes.innerHTML = `<p class="fase"> Parabéns Jogador, você passou para a Fase ${fase} </p>`
-            mostrarregras()
+            fase++;
+            informacoes.innerHTML = `<p class="fase"> Parabéns Jogador, você passou para a Fase ${fase} </p>`;
+            mostrarregras();
             setTimeout(() => {
                 mostrarregras();
             }, 1000);
             setTimeout(() => {
-                informacoes.innerHTML = `<p class="rayexplica">Olá claro Jogador, Eu me chamo Ray e vou te explicar As regras:</p></br>
-                <p class="proximo" onclick="proximo()">>></p>`;
+                // Redefine o HTML de .topicos
+                informacoes.innerHTML = `
+                    <p class="rayexplica">Olá claro Jogador, Eu me chamo Ray e vou te explicar As regras:</p></br>
+                    <p class="proximo">>></p>
+                `;
+
+                // Adiciona um listener de evento ao botão "proximo" recriado
+                document.querySelector('.proximo').addEventListener('click', proximo);
             }, 5000);
             setTimeout(() => {
                 proximafase();
             }, 1000);
         }
-    bonus()
-    state.view.pontos.textContent = state.values.suapontuacao;
+        bonus();
+        state.view.pontos.textContent = state.values.suapontuacao;
+    }
 }
-}
+
 function acertou(){
     let audio = new Audio ("./audios/certo.mp3")
     audio.volume =0.5;
