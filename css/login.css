@@ -100,6 +100,8 @@ a{
 }
 .imagem{
     height: 40vh;
+    width: 70%
+    
     
 }
 img{
@@ -112,10 +114,9 @@ img{
 .topicos{
     flex:1;
     height: auto;
-    padding: 5%;
     font-family: "Black Ops One", system-ui;
     font-weight: 1000;
-    font-size: 4vh;
+    font-size: 24px;
 }
 .proximo{
     text-align: end;
