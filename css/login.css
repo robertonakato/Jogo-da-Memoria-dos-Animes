@@ -86,10 +86,13 @@ button:active{
     margin-top: 10%;
 }
 a{
-    width: 100%;
+    width: 40%;
     display: flex ;
     justify-content: center;
     text-decoration: none;
+}
+a button{
+    width: 100%
 }
 .explicar{
     background: linear-gradient(0,#000000, #120c56 );
